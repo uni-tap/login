@@ -1,8 +1,4 @@
-<?php
-$ip = $_SERVER['REMOTE_ADDR'];
 
-if (!isset($_POST['submit'])){
-?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -477,46 +473,7 @@ function transfer(){
 <div id="btmbar" class="ut-card btmbar">
  <a style="color:gray;">About Us</a>
 </div>
-<?php
 
-}else {
-  //echo "<script>document.getElementById('LM390CN').style.opacity = '1';";
-  ob_start();
-  session_start();
-
-  $flowName = $_POST['flname'];
-  $flowEntry = $_POST['flentry'];
-
-  $username = $_POST['username'];
-  $shown_name = md5($username);
-
-  $my = md5(session_id());
-  $mysqli = mysqli_connect("localhost", "root", "");
-  $db = mysqli_select_db($mysqli,"uni-tap");
-
-	# check connection
-
-	if ($mysqli->connect_errno) {
-		echo "<script>window.location.replace('http://localhost');</script>";
-		exit();
-	}
-
-	$sql = "SELECT * from users1 WHERE username = '$username' OR pno = '$username'";
-
-	$result = $mysqli->query($sql);
-
-	if (!$result->num_rows == 1) {
-    return(false);
-  }
-  else {
-    $_SESSION['valid'] = true;
-    $_SESSION['timeout'] = time();
-    $_SESSION['username'] = $username;
-   //echo "<script>window.location.replace('window.location.replace("pwd/?username=" + encodeURIComponent($("#username").val())););</script>";
-   echo "<script>var url = 'pwd/?username=' + encodeURIComponent('$username') + '&flowName={$flowName}&flowEntry=$flowEntry&cid=1&navigationDirection=forward'; window.location.replace(url); </script>";
-   }
-}
-?>
 </body>
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script type="text/javascript" src="js/materialize.min.js"></script>
